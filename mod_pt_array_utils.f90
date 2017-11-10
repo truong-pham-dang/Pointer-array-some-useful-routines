@@ -6,8 +6,12 @@ module mod_pt_array_utils
         type(element), pointer :: p
         contains
         procedure :: print_elem => print_element
-!        procedure :: constr_elem => element_construtor
     end type
+
+    interface element
+        module procedure element_constructor
+    end interface
+
     contains
 
     subroutine print_element(this)
@@ -18,15 +22,15 @@ module mod_pt_array_utils
     20 format(i5xf15.7)
     end subroutine print_element
 
-!    subroutine element_constructor(this,i,x)
-!    implicit none
-!    class(obj_elem), intent(in) :: this
-!    integer, intent(in)         :: i
-!    real, intent(in)            :: x
-!
-!    this%p%ident = i
-!    this%p%value_elem = x
-!    end subroutine element_constructor
+    type(element) function element_constructor(i,x)
+    implicit none
+    integer, intent(in)         :: i
+    real,    intent(in)         :: x
+
+    element_constructor%ident = i
+    element_constructor%value_elem = x
+    end function element_constructor
+
 
     subroutine delete_elements_at_position(posi)
     implicit none

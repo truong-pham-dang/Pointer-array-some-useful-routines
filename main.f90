@@ -15,16 +15,13 @@ program Pointer_array
     allocate(elements(1:nbelements))
     do i = 1, nbelements
         allocate(elements(i)%p)
-        pt_elem => elements(i)%p
         call random_number(x)
-        pt_elem%ident  = i
-        pt_elem%value_elem = x
+        elements(i)%p  = element_constructor(i,x)
     end do
 
     write(*,*) 'Ids and values of elements:'
     do i = 1, nbelements
-        pt_elem => elements(i)%p
-        elem_obj%p => pt_elem
+        elem_obj%p => elements(i)%p
         call elem_obj%print_elem
     end do
 
